@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { Container, Dropdown, Menu } from 'semantic-ui-react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import RegistroAlumno from './components/RegistroAlumno';
+import ListaAlumnos from './components/ListaAlumnos';
+import EditarAlumno from './components/EditarAlumno';
+//import NoMatch from './components/NoMatch';
 
 class App extends Component {
   render() {
@@ -16,10 +19,10 @@ class App extends Component {
                 </Menu.Item>
                 <Menu.Item as='a'>Home</Menu.Item>
 
-                <Dropdown item simple text='Dropdown'>
+                <Dropdown item simple text='Dropdown' closeOnChange={true}>
                   <Dropdown.Menu>
                     <Dropdown.Item><Link to="/alumno/registro" style={{color: 'black'}}>Registro de Alumnos</Link></Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
+                    <Dropdown.Item><Link to="/alumno/lista" style={{color: 'black'}}>Lista de Alumnos</Link></Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Header>Header Item</Dropdown.Header>
                     <Dropdown.Item>
@@ -36,8 +39,11 @@ class App extends Component {
               </Container>
             </Menu>
 
-            <Container text style={{ marginTop: '7em' }}>
+            <Container fluid style={{ marginTop: '7em' }}>
               <Route path="/alumno/registro" component={RegistroAlumno}></Route>
+              <Route path="/alumno/lista" component={ListaAlumnos}></Route>
+              <Route path="/alumno/editar/:id" component={EditarAlumno}></Route>
+              {/*<Route component={NoMatch}/>*/}
             </Container>
           </div>
         </Router>

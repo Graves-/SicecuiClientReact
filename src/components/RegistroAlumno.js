@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Icon, Header } from 'semantic-ui-react';
+import { Form, Icon, Header, Container } from 'semantic-ui-react';
 import axios from 'axios';
 import FormGroup from 'semantic-ui-react/dist/commonjs/collections/Form/FormGroup';
 
@@ -70,7 +70,7 @@ class RegistroAlumno extends Component {
         }
 
         return (
-            <div>
+            <Container text>
                 <Header size='large'>Large Header</Header>
                 <Form onSubmit={this.formSubmit.bind(this)}>
                     <Form.Group widths='equal'>
@@ -109,7 +109,7 @@ class RegistroAlumno extends Component {
 
                     <Form.Button><Icon name='add user' />Inscribir</Form.Button>
                 </Form>
-            </div>
+            </Container>
         );
     }
 
