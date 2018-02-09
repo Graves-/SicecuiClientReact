@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import RegistroAlumno from './components/RegistroAlumno';
 import ListaAlumnos from './components/ListaAlumnos';
 import EditarAlumno from './components/EditarAlumno';
+import RegistroMaestro from './components/RegistroMaestro';
 //import NoMatch from './components/NoMatch';
 
 class App extends Component {
@@ -21,9 +22,12 @@ class App extends Component {
 
                 <Dropdown item simple text='Dropdown' closeOnChange={true}>
                   <Dropdown.Menu>
+                    <Dropdown.Header>Alumnos</Dropdown.Header>
                     <Dropdown.Item><Link to="/alumno/registro" style={{color: 'black'}}>Registro de Alumnos</Link></Dropdown.Item>
                     <Dropdown.Item><Link to="/alumno/lista" style={{color: 'black'}}>Lista de Alumnos</Link></Dropdown.Item>
                     <Dropdown.Divider />
+                    <Dropdown.Header>Maestros</Dropdown.Header>
+                    <Dropdown.Item><Link to="/maestro/registro" style={{color: 'black'}}>Registro de Maestros</Link></Dropdown.Item>
                     <Dropdown.Header>Header Item</Dropdown.Header>
                     <Dropdown.Item>
                       <i className='dropdown icon' />
@@ -40,6 +44,7 @@ class App extends Component {
             </Menu>
 
             <Container fluid style={{ marginTop: '7em' }}>
+              <Route path="/maestro/registro" component={RegistroMaestro}></Route>
               <Route path="/alumno/registro" component={RegistroAlumno}></Route>
               <Route path="/alumno/lista" component={ListaAlumnos}></Route>
               <Route path="/alumno/editar/:id" component={EditarAlumno}></Route>

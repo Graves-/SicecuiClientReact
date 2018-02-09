@@ -46,7 +46,7 @@ class ListaAlumnos extends Component {
                     {item.address.city}
                 </Table.Cell>
                 <Table.Cell>
-                    <Link to={'/alumno/editar/' + item.id}><Button fluid color='teal'><Icon name='edit' />Editar</Button></Link>
+                    <Link to={'/alumno/editar/' + item.id}><Button fluid color='teal'>Editar</Button></Link>
                     
                 </Table.Cell>
             </Table.Row>
