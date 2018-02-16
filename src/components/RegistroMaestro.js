@@ -15,7 +15,17 @@ class RegistroMaestro extends Component {
                 {value:'LIC', text: 'LICENCIATURA'},
                 {value:'MAE', text: 'MAESTRÍA'},
                 {value:'DOC', text: 'DOCTORADO'}
-            ]
+            ],
+            nombre: '',
+            apePat: '',
+            apeMat: '',
+            rfc: '',
+            curp: '',
+            correo: '',
+            dir: '',
+            tel: '',
+            ben: '',
+            dirBen: ''
         };
     }
     render() {
@@ -24,16 +34,16 @@ class RegistroMaestro extends Component {
                 <Header size='large'>Registro de Maestros</Header>
                 <Form onSubmit={this.formSubmit.bind(this)}>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid label='Nombre' placeholder='Nombre' />
-                        <Form.Input fluid label='Apellido Paterno' placeholder='Paterno' />
-                        <Form.Input fluid label='Apellido Materno' placeholder='Materno' />
+                        <Form.Input fluid label='Nombre' placeholder='Nombre' value={this.state.nombre} onChange={e => this.setState({nombre: e.target.value})} />
+                        <Form.Input fluid label='Apellido Paterno' placeholder='Paterno' value={this.state.apePat} onChange={e => this.setState({apePat: e.target.value})} />
+                        <Form.Input fluid label='Apellido Materno' placeholder='Materno' value={this.state.apeMat} onChange={e => this.setState({apeMat: e.target.value})}/>
                     </Form.Group>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid label='Correo Electrónico' placeholder='Correo' type='email' icon='mail' />
-                        <Form.Input fluid label='RFC' placeholder='RFC' icon='id badge' />
+                        <Form.Input fluid label='Correo Electrónico' placeholder='Correo' type='email' icon='mail' value={this.state.correo} onChange={e => this.setState({correo: e.target.value})} />
+                        <Form.Input fluid label='RFC' placeholder='RFC' icon='id badge' value={this.state.rfc} onChange={e => this.setState({rfc: e.target.value})} />
                     </Form.Group>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid label='CURP' placeholder='CURP' icon='id card' />
+                        <Form.Input fluid label='CURP' placeholder='CURP' icon='id card' value={this.state.curp} onChange={e => this.setState({curp: e.target.value})} />
                         <Form.Select fluid label='Nivel de Estudios' placeholder='Selecciona Nivel de Estudios' options={this.state.nivelEstudios} onChange={this.nivelChanged.bind(this)} />
                     </Form.Group>
                     <Form.Group widths='equal'>
@@ -41,12 +51,12 @@ class RegistroMaestro extends Component {
                         <Form.Select fluid label='Municipios' placeholder='Selecciona Municipios' options={this.state.municipios} onChange={this.munChanged.bind(this)} />
                     </Form.Group>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid label='Dirección' placeholder='Dirección' icon='home' />
-                        <Form.Input fluid label='Teléfono' placeholder='Teléfono' icon='phone' type='number' />
+                        <Form.Input fluid label='Dirección' placeholder='Dirección' icon='home' value={this.state.dir} onChange={e => this.setState({dir: e.target.value})} />
+                        <Form.Input fluid label='Teléfono' placeholder='Teléfono' icon='phone' type='number' value={this.state.tel} onChange={e => this.setState({tel: e.target.value})} />
                     </Form.Group>
                     <Form.Group widths='equal'>
-                        <Form.Input fluid label='Nombre Beneficiario' placeholder='Nombre Beneficiario' icon='user' />
-                        <Form.Input fluid label='Dirección Beneficiario' placeholder='Dirección Beneficiario' icon='home' />
+                        <Form.Input fluid label='Nombre Beneficiario' placeholder='Nombre Beneficiario' icon='user' value={this.state.ben} onChange={e => this.setState({ben: e.target.value})} />
+                        <Form.Input fluid label='Dirección Beneficiario' placeholder='Dirección Beneficiario' icon='home' value={this.state.dirBen} onChange={e => this.setState({dirBen: e.target.value})} />
                     </Form.Group>
 
                     <Form.Button><Icon name='add user' />Registrar</Form.Button>

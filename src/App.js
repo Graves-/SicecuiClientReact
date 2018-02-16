@@ -5,6 +5,8 @@ import RegistroAlumno from './components/RegistroAlumno';
 import ListaAlumnos from './components/ListaAlumnos';
 import EditarAlumno from './components/EditarAlumno';
 import RegistroMaestro from './components/RegistroMaestro';
+import Pagos from './components/pagos/Pagos';
+import searchTest from './components/search/searchTest';
 //import NoMatch from './components/NoMatch';
 
 class App extends Component {
@@ -20,7 +22,7 @@ class App extends Component {
                 </Menu.Item>
                 <Menu.Item as='a'>Home</Menu.Item>
 
-                <Dropdown item simple text='Dropdown' closeOnChange={true}>
+                <Dropdown item simple text='Acciones' closeOnChange={true}>
                   <Dropdown.Menu>
                     <Dropdown.Header>Alumnos</Dropdown.Header>
                     <Dropdown.Item><Link to="/alumno/registro" style={{color: 'black'}}>Registro de Alumnos</Link></Dropdown.Item>
@@ -28,16 +30,13 @@ class App extends Component {
                     <Dropdown.Divider />
                     <Dropdown.Header>Maestros</Dropdown.Header>
                     <Dropdown.Item><Link to="/maestro/registro" style={{color: 'black'}}>Registro de Maestros</Link></Dropdown.Item>
-                    <Dropdown.Header>Header Item</Dropdown.Header>
                     <Dropdown.Item>
                       <i className='dropdown icon' />
-                      <span className='text'>Submenu</span>
+                      <span className='text'>Pagos</span>
                       <Dropdown.Menu>
-                        <Dropdown.Item>List Item</Dropdown.Item>
-                        <Dropdown.Item>List Item</Dropdown.Item>
+                        <Dropdown.Item><Link to="/pagos" style={{color: 'black'}}>Lista de Pagos</Link></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown.Item>
-                    <Dropdown.Item>List Item</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Container>
@@ -48,6 +47,8 @@ class App extends Component {
               <Route path="/alumno/registro" component={RegistroAlumno}></Route>
               <Route path="/alumno/lista" component={ListaAlumnos}></Route>
               <Route path="/alumno/editar/:id" component={EditarAlumno}></Route>
+              <Route path="/pagos" component={Pagos}></Route>
+              <Route path="/search" component={searchTest}></Route>
               {/*<Route component={NoMatch}/>*/}
             </Container>
           </div>
