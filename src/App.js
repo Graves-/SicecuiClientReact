@@ -6,6 +6,7 @@ import ListaAlumnos from './components/ListaAlumnos';
 import EditarAlumno from './components/EditarAlumno';
 import RegistroMaestro from './components/RegistroMaestro';
 import Pagos from './components/pagos/Pagos';
+import RegistroPago from './components/pagos/RegistroPago';
 import searchTest from './components/search/searchTest';
 //import NoMatch from './components/NoMatch';
 
@@ -34,7 +35,8 @@ class App extends Component {
                       <i className='dropdown icon' />
                       <span className='text'>Pagos</span>
                       <Dropdown.Menu>
-                        <Dropdown.Item><Link to="/pagos" style={{color: 'black'}}>Lista de Pagos</Link></Dropdown.Item>
+                        <Dropdown.Item><Link to="/pagos/lista" style={{color: 'black'}}>Lista de Pagos</Link></Dropdown.Item>
+                        <Dropdown.Item><Link to="/pagos/registro" style={{color: 'black'}}>Registro de Pago</Link></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown.Item>
                   </Dropdown.Menu>
@@ -47,8 +49,9 @@ class App extends Component {
               <Route path="/alumno/registro" component={RegistroAlumno}></Route>
               <Route path="/alumno/lista" component={ListaAlumnos}></Route>
               <Route path="/alumno/editar/:id" component={EditarAlumno}></Route>
-              <Route path="/pagos" component={Pagos}></Route>
+              <Route path="/pagos/lista" component={Pagos}></Route>
               <Route path="/search" component={searchTest}></Route>
+              <Route path="/pagos/registro" component={RegistroPago}></Route>
               {/*<Route component={NoMatch}/>*/}
             </Container>
           </div>

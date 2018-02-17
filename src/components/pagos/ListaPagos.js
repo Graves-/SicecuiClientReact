@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Container, List, Search, Header } from 'semantic-ui-react';
+import { Container, List, Input } from 'semantic-ui-react';
 import ListItemPagos from './ListItemPagos';
 import _ from 'lodash';
+import config from '../../config';
+import axios from 'axios';
 
 class Pagos extends Component {
     
@@ -9,87 +11,49 @@ class Pagos extends Component {
         super(props);
         this.state = {
             isLoading: false,
-            items: []
+            searchInput: ''
         }
     }
-    componentWillMount(){
-        this.resetComponent();
-    }
+
     render(){
-        const { isLoading, value, results } = this.state;
-        let Lista;
-
-        console.log('render', results);
-
-        if(this.state.results.length > 0){
-            console.log('results.length > 0');
-            Lista = this.state.results.map((pago, index) => {
-                <ListItemPagos
-                    style={{cursor: 'pointer'}}
-                    key={index}
-                    concepto={pago.Concepto}
-                    nombre={pago.Nombre + ' ' + pago.ApellidoPaterno + ' ' + pago.ApellidoMaterno}
-                />
-            });
-        }else{
-            console.log('results.length <= 0');
-            Lista = this.props.items.map((pago, index) => 
-                <ListItemPagos
-                    style={{cursor: 'pointer'}}
-                    key={index}
-                    concepto={pago.Concepto}
-                    nombre={pago.Nombre + ' ' + pago.ApellidoPaterno + ' ' + pago.ApellidoMaterno}
-                />
-            );
-        }
+        let filtered = this.props.items.filter( (pago) => {
+            if(this.state.searchInput === '') return true;
+            const re = new RegExp(_.escapeRegExp(this.state.searchInput), 'i');
+            return re.test(pago.Concepto) || re.test(pago.Matricula) || re.test(pago.Nombre + ' ' + pago.ApellidoPaterno + ' ' + pago.ApellidoMaterno);
+        });
+        const Lista = filtered.map((pago, index) => 
+            <ListItemPagos
+                key={index}
+                folio={pago.folio}
+                concepto={pago.Concepto}
+                nombre={pago.Nombre + ' ' + pago.ApellidoPaterno + ' ' + pago.ApellidoMaterno}
+                cantidad={'$ '+pago.CantidadNum+'.00  ,  ' + pago.CantidadLetra}
+                matricula={pago.Matricula}
+                fecha={pago.Dia + ' / ' + pago.Mes + ' / ' + pago.Anio}
+                modo={pago.ModoPago !== undefined ? pago.ModoPago : 'SIN MODO DE PAGO.'}
+            />
+        );
 
         return(
             <Container fluid>
-                <Search
-                    fluid
-                    loading={isLoading}
-                    onResultSelect={this.handleResultSelect.bind(this)}
-                    onSearchChange={this.handleSearchChange.bind(this)}
-                    results={results}
-                    value={value}
-                    {...this.props}
-                />
-                <List divided verticalAlign='middle'>
+                <Input fluid loading={this.state.isLoading} placeholder='Buscar' icon='search' onChange={this.handleSearchInput.bind(this)} />
+                <List celled verticalAlign='middle'>
                     {Lista}
                 </List>
-                
-                <Header>State</Header>
-                <pre>{JSON.stringify(this.state, null, 2)}</pre>
-                <Header>Options</Header>
-                <pre>{JSON.stringify(this.state, null, 2)}</pre>
             </Container>
         );
     }
 
-    resetComponent(){
-        this.setState({ isLoading: false, results: [], value: '', items: this.props.items });
-    }
-
-    handleResultSelect(e, {result}){
-        console.log('selected', this.state.results);
-        this.setState({value: result.title});
-    }
-
-    handleSearchChange(e, {value}){
-        this.setState({isLoading: true, value});
+    handleSearchInput(e, {value}){
+        this.setState({isLoading: true, searchInput: value});
 
         setTimeout(() => {
-            if(this.state.value.length < 1) return this.resetComponent();
-            const re = new RegExp(_.escapeRegExp(this.state.value), 'i');
-            const isMatch = result => re.test(result.Concepto);
-
             this.setState({
                 isLoading: false,
-                results: _.filter(this.props.items, isMatch)
+                searchInput: value
             });
         }, 500);
     }
-
 }
 
 export default Pagos;

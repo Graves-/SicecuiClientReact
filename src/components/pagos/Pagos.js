@@ -10,20 +10,29 @@ class Pagos extends Component {
     constructor(props){
         super(props);
         this.state = {
-            pagos: []
+            pagos: [],
+            selectedAnio: 0
         }
     }
     componentWillMount(){
-        this.GetPagos(0);
+        this.GetPagos();
     }
 
     render(){
+        let filteredPagos = this.state.pagos.filter( (pago) => {
+            if(this.state.selectedAnio == 0){
+                return true;
+            } else{
+                return pago.Anio == this.state.selectedAnio
+            }
+            
+        });
         const panes = [
             {
                 menuItem: 'Todos', 
                 render: () => (
                     <Tab.Pane>
-                        <ListaPagos items={this.state.pagos}></ListaPagos>
+                        <ListaPagos items={filteredPagos}></ListaPagos>
                     </Tab.Pane>
                 ),
                 anio: 0
@@ -32,7 +41,7 @@ class Pagos extends Component {
                 menuItem: '2016 y Anteriores', 
                 render: () => (
                     <Tab.Pane>
-                        <ListaPagos items={this.state.pagos}></ListaPagos>
+                        <ListaPagos items={filteredPagos}></ListaPagos>
                     </Tab.Pane>
                 ),
                 anio: 2016
@@ -41,7 +50,7 @@ class Pagos extends Component {
                 menuItem: '2017', 
                 render: () => (
                     <Tab.Pane>
-                        <ListaPagos items={this.state.pagos}></ListaPagos>
+                        <ListaPagos items={filteredPagos}></ListaPagos>
                     </Tab.Pane>
                 ),
                 anio: 2017
@@ -50,7 +59,7 @@ class Pagos extends Component {
                 menuItem: '2018 y Después', 
                 render: () => (
                     <Tab.Pane>
-                        <ListaPagos items={this.state.pagos}></ListaPagos>
+                        <ListaPagos items={filteredPagos}></ListaPagos>
                     </Tab.Pane>
                 ),
                 anio: 2018
@@ -65,37 +74,15 @@ class Pagos extends Component {
     }
 
     handleTabChange(e, data){
-        this.GetPagos(data.panes[data.activeIndex].anio)
+        this.setState({ selectedAnio: data.panes[data.activeIndex].anio});
     }
 
-    GetPagos(anio){
-        switch(anio){
-            case 0: {
-                axios.get(`${config.baseUrl}/pagos`).then((res) => {
-                    res.data.map((pago, index) => {
-                        pago.title = pago.Concepto + " - " + pago.Dia + "/"+pago.Mes+"/"+pago.Anio;
-                        pago.description = pago.Nombre + " " + pago.ApellidoPaterno + " " + pago.ApellidoMaterno;
-                        pago.price = "$" + pago.CantidadNum + ".00";
-                    });
-                    this.setState({pagos: res.data});
-                }).catch((err) => {
-                    console.log(err);
-                });
-                break;
-            }
-            default: {
-                axios.get(`${config.baseUrl}/pagos/${anio}`).then((res) => {
-                    res.data.map((pago, index) => {
-                        pago.title = pago.Concepto + " - " + pago.Dia + "/"+pago.Mes+"/"+pago.Anio;
-                        pago.description = pago.Nombre + " " + pago.ApellidoPaterno + " " + pago.ApellidoMaterno;
-                        pago.price = "$" + pago.CantidadNum + ".00";
-                    });
-                    this.setState({pagos: res.data});
-                }).catch((err) => {
-                    console.log(err);
-                });
-            }
-        }
+    GetPagos(){
+        axios.get(`${config.baseUrl}/pagos`).then((res) => {
+            this.setState({pagos: res.data});
+        }).catch((err) => {
+            console.log(err);
+        });
     }
 }
 
