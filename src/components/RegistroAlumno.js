@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Form, Icon, Header, Container } from 'semantic-ui-react';
+import { Form, Icon, Header, Container, FormGroup } from 'semantic-ui-react';
 import axios from 'axios';
-import FormGroup from 'semantic-ui-react/dist/commonjs/collections/Form/FormGroup';
+import config from '../config';
+import swal from 'sweetalert2';
 
 class RegistroAlumno extends Component {
     constructor(props){
         super(props);
         this.state = {
+            matricula: '',
             nombre: '',
             apePat:'',
             apeMat: '',
@@ -71,8 +73,9 @@ class RegistroAlumno extends Component {
 
         return (
             <Container text>
-                <Header size='large'>Large Header</Header>
+                <Header size='large'>Registro de Alumno</Header>
                 <Form onSubmit={this.formSubmit.bind(this)}>
+                    <Form.Input fluid label='Matríula' placeholder='Matrícula de Alumno' value={this.state.matricula} onChange={(e) => this.setState({matricula: e.target.value})}></Form.Input>
                     <Form.Group widths='equal'>
                         <Form.Input fluid label='Nombre' placeholder='Nombre' value={this.state.nombre} onChange={this.nombreChanged.bind(this)} />
                         <Form.Input fluid label='Apellido Paterno' placeholder='Paterno' value={this.state.apePat} onChange={this.apPatChanged.bind(this)}/>
@@ -183,7 +186,7 @@ class RegistroAlumno extends Component {
     }
 
     estatusChanged(e, target){
-        this.setState({estadoSelected: target.value});
+        this.setState({estatusSelected: target.value});
     }
 
     mediosChanged(e, target){
@@ -231,10 +234,47 @@ class RegistroAlumno extends Component {
 
     formSubmit(e){
         e.preventDefault();
-        let data = this.state;
+        let data = {
+            Matricula: this.state.matricula,
+            Nombre: this.state.nombre,
+            ApellidoPaterno: this.state.apePat,
+            ApellidoMaterno: this.state.apeMat,
+            Telefono: this.state.tel,
+            Municipio: this.state.munSelected,
+            Entidad: this.state.estadoSelected,
+            Direccion: this.state.dir,
+            CURP: this.state.curp,
+            Email: this.state.correo,
+            PerfilID: 1,
+            CuatrimestreID: this.state.cautrimestreSelected,
+            StatusID: this.state.estatusSelected,
+            CarreraID: this.state.carreraSelected,
+            Trabaja: this.state.trabaja ? 'SI' : 'NO',
+            LugarTrabaja: this.state.lugarTrabajo,
+            Turno: this.state.turnoSelected,
+            Medio: this.state.medioSelected,
+            Bachillerato: this.state.bach
+        };
         console.log(data);
-        axios.post('url', data).catch((err) => {
-            //console.log('error xD');
+
+        axios.post(`${config.baseUrl}/alumnos/registro`, data).catch((err) => {
+            console.log('error xD', err);
+        }).then((response) => {
+            if(response.data === 'ok'){
+                swal({
+                    title: 'Alumno Inscrito',
+                    text: 'El alumno fue inscrito exitosamente!',
+                    type: 'success',
+                    confirmButtonText: 'Aceptar'
+                });
+            }else{
+                swal({
+                    title: 'Error!',
+                    text: 'Hubo un error al inscribir al alumno.',
+                    type: 'error',
+                    confirmButtonText: 'Aceptar'
+                });
+            }
         });
     }
 }
