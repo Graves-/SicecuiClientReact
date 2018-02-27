@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Form, Icon, Header, Container, FormGroup } from 'semantic-ui-react';
 import axios from 'axios';
-import config from '../config';
+import config from '../../config';
 import swal from 'sweetalert2';
 
 class RegistroAlumno extends Component {
