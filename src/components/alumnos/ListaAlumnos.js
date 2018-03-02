@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Container, Table, Header, Grid, Button, Icon, Input } from 'semantic-ui-react';
+import { Container, Table, Header, Grid, Button, Icon, Input, Card, List  } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../config';
 import _ from 'lodash';
 import AlumnoRow from './AlumnoRow';
+import DetallesAlumno from './DetallesAlumno';
 
 export default class ListaAlumnos extends Component {
 
@@ -11,11 +12,13 @@ export default class ListaAlumnos extends Component {
         super(props);
         this.state = {
             items: [],
-            filterInput: ''
+            filterInput: '',
+            showDetalles: false,
+            alumnoEditar: {}
         };
         this.getAlumnos = this.getAlumnos.bind(this);
         this.handleLimpiar = this.handleLimpiar.bind(this);
-        this.handleSearch = this.handleSearch.bind(this);
+        this.handleDetalles = this.handleDetalles.bind(this);
     }
 
     componentDidMount(){
@@ -23,16 +26,22 @@ export default class ListaAlumnos extends Component {
     }
 
     render(){
-        const displayAlumnos = this.state.items.map((alumno, index) => {
-            return <AlumnoRow key={index} matricula={alumno.Matricula} nombre={`${alumno.Nombre} ${alumno.ApellidoPaterno} ${alumno.ApellidoMaterno}`} carrera={alumno.CarreraID} cuatrimestre={alumno.CuatrimestreID} />
+        /*const displayAlumnos = this.state.items.map((alumno, index) =>  return <AlumnoRow key={index} matricula={alumno.Matricula} nombre={`${alumno.Nombre} ${alumno.ApellidoPaterno} ${alumno.ApellidoMaterno}`} carrera={alumno.CarreraID} cuatrimestre={alumno.CuatrimestreID} />);*/
+        const filteredAlumnos = this.state.items.filter((alumno, index) => {
+            let nombreCompleto = `${alumno.Nombre} ${alumno.ApellidoPaterno} ${alumno.ApellidoMaterno}`;
+            return alumno.Matricula.toLowerCase().indexOf(this.state.filterInput.toLowerCase()) !== -1 || nombreCompleto.toLowerCase().indexOf(this.state.filterInput.toLowerCase()) !== -1 || alumno.CarreraID.toLowerCase().indexOf(this.state.filterInput.toLowerCase()) !== -1;
+        });
+
+        const displayAlumnos = filteredAlumnos.map((alumno, index) => {
+            return <AlumnoRow key={index} matricula={alumno.Matricula} nombre={`${alumno.Nombre} ${alumno.ApellidoPaterno} ${alumno.ApellidoMaterno}`} carrera={alumno.CarreraID} cuatrimestre={alumno.CuatrimestreID} handler={() => this.handleDetalles(alumno)} />;
         });
 
         return(
-            <Container>
+            <Container fluid style={{padding: '15px'}}>
                 <Grid columns={2}>
                     <Grid.Row>
                         <Grid.Column>
-                            <Input icon='search' placeholder='Buscar...' fluid value={this.state.filterInput} onClick={this.handleSearch} />
+                            <Input icon='search' placeholder='Buscar...' fluid value={this.state.filterInput} onChange={e => this.setState({filterInput: e.target.value})} />
                         </Grid.Column>
                         <Grid.Column>
                             <Button icon onClick={this.handleLimpiar} color='yellow'>
@@ -43,21 +52,37 @@ export default class ListaAlumnos extends Component {
                     </Grid.Row>
                 </Grid>
 
-                <Table celled compact sortable>
-                    <Table.Header>
-                        <Table.Row>
-                            <Table.HeaderCell>Matrícula</Table.HeaderCell>
-                            <Table.HeaderCell>Nombre</Table.HeaderCell>
-                            <Table.HeaderCell>Carrera</Table.HeaderCell>
-                            <Table.HeaderCell>Cuatrimestre</Table.HeaderCell>
-                            <Table.HeaderCell>Acciones</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
+                <Grid columns={2}>
+                    <Grid.Column width={10}>
+                        <Table celled compact sortable>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Matrícula</Table.HeaderCell>
+                                    <Table.HeaderCell>Nombre</Table.HeaderCell>
+                                    <Table.HeaderCell>Carrera</Table.HeaderCell>
+                                    <Table.HeaderCell>Cuatrimestre</Table.HeaderCell>
+                                    <Table.HeaderCell>Acciones</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
 
-                    <Table.Body>
-                        {displayAlumnos}
-                    </Table.Body>
-                </Table>
+                            <Table.Body>
+                                {displayAlumnos}
+                            </Table.Body>
+                        </Table>
+                    </Grid.Column>
+                    <Grid.Column width={6}>
+                        { 
+                            this.state.showDetalles === true ? 
+                                <div>
+                                    <DetallesAlumno alumno={this.state.alumnoEditar}></DetallesAlumno> 
+                                    <div style={{textAlign: 'right'}}>
+                                        <Button onClick={() => this.setState({showDetalles: false})} color='red'><Icon name='close' />Cerrar</Button>
+                                    </div>
+                                </div>
+                            : "" 
+                        }
+                    </Grid.Column>
+                </Grid>
             </Container>
         );
     }
@@ -70,11 +95,17 @@ export default class ListaAlumnos extends Component {
         });
     }
 
-    handleSearch(e){
-        this.setState({filterInput: e.target.value});
-    }
-
     handleLimpiar(){
         this.setState({filterInput: ''});
     }
+
+    handleDetalles(alumno){
+        this.setState({showDetalles: true, alumnoEditar: alumno});
+    }
 }
+
+/*
+    TODO: guardar status de alumno alregistrar.
+    TODO: guardar los nombres de los estados y municipios
+    TODO: guardar medio y turno con el nombre
+*/

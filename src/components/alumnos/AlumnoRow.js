@@ -16,8 +16,8 @@ const AlumnoRow = (props) => {
             <Table.Cell>
                 {props.cuatrimestre}
             </Table.Cell>
-            <Table.Cell>
-                <Button id={`btn_${props.matricula}`} color='blue'><Icon name='edit' /> Editar</Button>
+            <Table.Cell textAlign='center'>
+                <Button id={`btn_${props.matricula}`} color='blue' onClick={props.handler}><Icon name='info' /> Detalles</Button>
             </Table.Cell>
         </Table.Row>
     );
