@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Icon, Header, Container, FormGroup } from 'semantic-ui-react';
+import { Form, Icon, Header, Container, FormGroup, Card } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../config';
 import swal from 'sweetalert2';
@@ -76,41 +76,75 @@ class RegistroAlumno extends Component {
                 <Header size='large'>Registro de Alumno</Header>
                 <Form onSubmit={this.formSubmit.bind(this)}>
                     <Form.Input fluid label='Matríula' placeholder='Matrícula de Alumno' value={this.state.matricula} onChange={(e) => this.setState({matricula: e.target.value})}></Form.Input>
-                    <Form.Group widths='equal'>
-                        <Form.Input fluid label='Nombre' placeholder='Nombre' value={this.state.nombre} onChange={this.nombreChanged.bind(this)} />
-                        <Form.Input fluid label='Apellido Paterno' placeholder='Paterno' value={this.state.apePat} onChange={this.apPatChanged.bind(this)}/>
-                        <Form.Input fluid label='Apellido Materno' placeholder='Materno' value={this.state.apeMat} onChange={this.apMatChanged.bind(this)}/>
-                    </Form.Group>
-                    <Form.Group widths='equal'>
-                        <Form.Input fluid label='Teléfono' placeholder='Teléfono' icon="phone" type="number" value={this.state.tel} onChange={this.telChanged.bind(this)}/>
-                        <Form.Input fluid label='Correo Electrónico' placeholder='Correo' icon='mail' type="email" value={this.state.correo} onChange={this.correoChanged.bind(this)}/>
-                    </Form.Group>
-                    <Form.Group widths='equal'>
-                        <Form.Input fluid label='CURP' placeholder='CURP' icon="id card" value={this.state.curp} onChange={this.curpChanged.bind(this)} />
-                        <Form.Input fluid label='Dirección' placeholder='Dirección' icon='home' value={this.state.dir} onChange={this.dirChanged.bind(this)}/>
-                    </Form.Group>
-                    <Form.Group widths='equal'>
-                        <Form.Select fluid label='Estado' options={this.state.estados} placeholder='Selecciona Estado' onChange={this.estadoChanged.bind(this)} />
-                        <Form.Select fluid label='Municipio' options={this.state.municipios} placeholder='Selecciona Municipio' onChange={this.munChanged.bind(this)} />
-                    </Form.Group>
-                    <Form.Group widths='equal'>
-                        <Form.Select fluid label='Carrera' options={carreras} placeholder='Selecciona Carrera' onChange={this.carreraChanged.bind(this)} />
-                        <Form.Select fluid label='Cuatrimestre' options={cautrimestre} placeholder='Selecciona Cuatrimestre' onChange={this.cuatChanged.bind(this)} />
-                    </Form.Group>
-                    <Form.Group widths='equal'>
-                        <Form.Select fluid label='Turno' options={turnos} placeholder='Selecciona Turno' onChange={this.turnoChanged.bind(this)} />
-                        <Form.Select fluid label='Estatus' options={estatuses} placeholder='Selecciona Estatus' onChange={this.estatusChanged.bind(this)} />
-                    </Form.Group>
-                    <Form.Group widths='equal'>
-                        <Form.Input fluid label='Bachillerato' placeholder='Bachillerato' icon="book" value={this.state.bach} onChange={this.bachChanged.bind(this)}/>
-                        <Form.Select fluid label='¿Cómo te enteraste?' options={medios} placeholder='Selecciona Medio' onChange={this.mediosChanged.bind(this)} />
-                    </Form.Group>
-                    <FormGroup widths='equal'>
-                        <Form.Checkbox label='Trabaja?' onChange={this.trabajaChanged.bind(this)} />
-                        {Trabaja}
-                    </FormGroup>
+                    
+                    <Header>
+                        <Icon name='list layout' /> Datos Generales del Alummno
+                    </Header>
+                    <Card fluid>
+                        <Card.Content>
+                            <Form.Group widths='equal'>
+                                <Form.Input fluid label='Nombre' placeholder='Nombre' value={this.state.nombre} onChange={this.nombreChanged.bind(this)} />
+                                <Form.Input fluid label='Apellido Paterno' placeholder='Paterno' value={this.state.apePat} onChange={this.apPatChanged.bind(this)}/>
+                                <Form.Input fluid label='Apellido Materno' placeholder='Materno' value={this.state.apeMat} onChange={this.apMatChanged.bind(this)}/>
+                            </Form.Group>
+                            <Form.Group widths='equal'>
+                                <Form.Input fluid label='Teléfono' placeholder='Teléfono' icon="phone" type="number" value={this.state.tel} onChange={this.telChanged.bind(this)}/>
+                                <Form.Input fluid label='Correo Electrónico' placeholder='Correo' icon='mail' type="email" value={this.state.correo} onChange={this.correoChanged.bind(this)}/>
+                            </Form.Group>
+                            <Form.Group widths='equal'>
+                                <Form.Input fluid label='CURP' placeholder='CURP' icon="id card" value={this.state.curp} onChange={this.curpChanged.bind(this)} />
+                                <Form.Input fluid label='Dirección' placeholder='Dirección' icon='home' value={this.state.dir} onChange={this.dirChanged.bind(this)}/>
+                            </Form.Group>
+                        </Card.Content>
+                    </Card>
+                    
+                    
+                    <Header>
+                        <Icon name='map' /> Origen del Alumno
+                    </Header>
+                    <Card fluid>
+                        <Card.Content>
+                            <Form.Group widths='equal'>
+                                <Form.Select fluid label='Estado' options={this.state.estados} placeholder='Selecciona Estado' onChange={this.estadoChanged.bind(this)} />
+                                <Form.Select fluid label='Municipio' options={this.state.municipios} placeholder='Selecciona Municipio' onChange={this.munChanged.bind(this)} />
+                            </Form.Group>
+                        </Card.Content>
+                    </Card>
+                    
+                    <Header>
+                        <Icon name='book' /> Datos Académicos del Alumno
+                    </Header>
+                    <Card fluid>
+                        <Card.Content>
+                            <Form.Group widths='equal'>
+                                <Form.Select fluid label='Carrera' options={carreras} placeholder='Selecciona Carrera' onChange={this.carreraChanged.bind(this)} />
+                                <Form.Select fluid label='Cuatrimestre' options={cautrimestre} placeholder='Selecciona Cuatrimestre' onChange={this.cuatChanged.bind(this)} />
+                            </Form.Group>
+                            <Form.Group widths='equal'>
+                                <Form.Select fluid label='Turno' options={turnos} placeholder='Selecciona Turno' onChange={this.turnoChanged.bind(this)} />
+                                <Form.Select fluid label='Estatus' options={estatuses} placeholder='Selecciona Estatus' onChange={this.estatusChanged.bind(this)} />
+                            </Form.Group>
+                        </Card.Content>
+                    </Card>
 
-                    <Form.Button><Icon name='add user' />Inscribir</Form.Button>
+                    <Header>
+                        <Icon name='info' /> Información Adicional
+                    </Header>
+                    <Card fluid>
+                        <Card.Content>
+                            <Form.Group widths='equal'>
+                                <Form.Input fluid label='Bachillerato' placeholder='Bachillerato' icon="book" value={this.state.bach} onChange={this.bachChanged.bind(this)}/>
+                                <Form.Select fluid label='¿Cómo te enteraste?' options={medios} placeholder='Selecciona Medio' onChange={this.mediosChanged.bind(this)} />
+                            </Form.Group>
+                            <FormGroup widths='equal'>
+                                <Form.Checkbox label='Trabaja?' onChange={this.trabajaChanged.bind(this)} />
+                                {Trabaja}
+                            </FormGroup>
+                        </Card.Content>
+                    </Card>
+                    
+
+                    <Form.Button color='green'><Icon name='add user' />Inscribir</Form.Button>
                 </Form>
             </Container>
         );
