@@ -16,6 +16,12 @@ const AlumnoRow = (props) => {
             <Table.Cell>
                 {props.cuatrimestre}
             </Table.Cell>
+            <Table.Cell>
+                {props.origen}
+            </Table.Cell>
+            <Table.Cell>
+                {props.estatus}
+            </Table.Cell>
             <Table.Cell textAlign='center'>
                 <Button id={`btn_${props.matricula}`} color='blue' onClick={props.handler}><Icon name='info' /> Detalles</Button>
             </Table.Cell>

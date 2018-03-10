@@ -20,52 +20,57 @@ class RegistroAlumno extends Component {
             lugarTrabajo: '',
             estados: [],
             municipios: [],
+            medios: [
+                {key: 1, value: 1, text:'AMIGOS'},
+                {key: 2, value: 2, text:'RADIO'},
+                {key: 3, value: 3, text:'MANTAS'},
+                {key: 4, value: 4, text:'FAMILIA'},
+                {key: 5, value: 5, text:'VOLANTES'},
+                {key: 6, value: 6, text:'PERIODICO'},
+                {key: 7, value: 7, text:'OTROS'}
+            ],
+            carreras: [
+                {key: 1, value:'LEA', text:'LICENCIATURA EN ADMINISTRACIÓN'},
+                {key: 2, value:'LED', text:'LICENCIATURA EN DERECHO'},
+                {key: 3, value:'LEI', text:'LICENCIATURA EN INFORMÁTICA'},
+                {key: 4, value:'LEC', text:'LICENCIATURA EN CONTABILIDAD'}
+            ],
+            cautrimestres: [
+                {key: 1, value: 1, text:'PRIMER CUATRIMESTRE'},
+                {key: 2, value: 2, text:'SEGUNDO CUATRIMESTRE'},
+                {key: 3, value: 3, text:'TERCER CUATRIMESTRE'},
+                {key: 4, value: 4, text:'CUARTO CUATRIMESTRE'}
+            ],
+            turnos: [
+                {key: 1, value: 1, text:'MATUTINO'},
+                {key: 2, value: 2, text:'VESPERTINO'},
+                {key: 3, value: 3, text:'SABATINO'}
+            ],
+            estatuses: [
+                {key: 1, value: 1, text:'REGULAR'},
+                {key: 2, value: 2, text:'IRREGULAR'},
+                {key: 3, value: 3, text:'MATERIAS LIBRES'},
+                {key: 4, value: 4, text:'BAJA'},
+                {key: 5, value: 5, text:'EGRESADO'},
+                {key: 6, value: 6, text:'TITULADO'}
+            ],
             estadoSelected: 0,
+            nombreEdo: '',
             munSelected: 0,
+            nombreMun: '',
             carreraSelected: 0,
             cautrimestreSelected: 0,
             turnoSelected: 0,
+            nombreTurno: '',
             estatusSelected: 0,
+            nombreEstatus: '',
             medioSelected: 0,
+            nombreMedio: '',
             trabaja: false
         };
     }
 
     render() {
-        const carreras = [
-            {key: 1, value:'LEA', text:'LICENCIATURA EN ADMINISTRACIÓN'},
-            {key: 2, value:'LED', text:'LICENCIATURA EN DERECHO'},
-            {key: 3, value:'LEI', text:'LICENCIATURA EN INFORMÁTICA'},
-            {key: 4, value:'LEC', text:'LICENCIATURA EN CONTABILIDAD'}
-        ];
-        const cautrimestre = [
-            {key: 1, value: 1, text:'PRIMER CUATRIMESTRE'},
-            {key: 2, value: 2, text:'SEGUNDO CUATRIMESTRE'},
-            {key: 3, value: 3, text:'TERCER CUATRIMESTRE'},
-            {key: 4, value: 4, text:'CUARTO CUATRIMESTRE'}
-        ];
-        const turnos = [
-            {key: 1, value: 1, text:'MATUTINO'},
-            {key: 2, value: 2, text:'VESPERTINO'},
-            {key: 3, value: 3, text:'SABATINO'}
-        ];
-        const estatuses = [
-            {key: 1, value: 1, text:'REGULAR'},
-            {key: 2, value: 2, text:'IRREGULAR'},
-            {key: 3, value: 3, text:'MATERIAS LIBRES'},
-            {key: 4, value: 4, text:'BAJA'},
-            {key: 5, value: 5, text:'EGRESADO'},
-            {key: 6, value: 6, text:'TITULADO'}
-        ];
-        const medios = [
-            {key: 1, value: 1, text:'AMIGOS'},
-            {key: 2, value: 2, text:'RADIO'},
-            {key: 3, value: 3, text:'MANTAS'},
-            {key: 4, value: 4, text:'FAMILIA'},
-            {key: 5, value: 5, text:'VOLANTES'},
-            {key: 6, value: 6, text:'PERIODICO'},
-            {key: 7, value: 7, text:'OTROS'}
-        ];
         let Trabaja = null;
         if(this.state.trabaja){
             Trabaja = <Form.Input fluid label='Lugar de Trabajo' placeholder='Lugar' value={this.state.lugarTrabajo} onChange={this.lugarTrabajoChanged.bind(this)}></Form.Input>;
@@ -117,12 +122,12 @@ class RegistroAlumno extends Component {
                     <Card fluid>
                         <Card.Content>
                             <Form.Group widths='equal'>
-                                <Form.Select fluid label='Carrera' options={carreras} placeholder='Selecciona Carrera' onChange={this.carreraChanged.bind(this)} />
-                                <Form.Select fluid label='Cuatrimestre' options={cautrimestre} placeholder='Selecciona Cuatrimestre' onChange={this.cuatChanged.bind(this)} />
+                                <Form.Select fluid label='Carrera' options={this.state.carreras} placeholder='Selecciona Carrera' onChange={this.carreraChanged.bind(this)} />
+                                <Form.Select fluid label='Cuatrimestre' options={this.state.cautrimestres} placeholder='Selecciona Cuatrimestre' onChange={this.cuatChanged.bind(this)} />
                             </Form.Group>
                             <Form.Group widths='equal'>
-                                <Form.Select fluid label='Turno' options={turnos} placeholder='Selecciona Turno' onChange={this.turnoChanged.bind(this)} />
-                                <Form.Select fluid label='Estatus' options={estatuses} placeholder='Selecciona Estatus' onChange={this.estatusChanged.bind(this)} />
+                                <Form.Select fluid label='Turno' options={this.state.turnos} placeholder='Selecciona Turno' onChange={this.turnoChanged.bind(this)} />
+                                <Form.Select fluid label='Estatus' options={this.state.estatuses} placeholder='Selecciona Estatus' onChange={this.estatusChanged.bind(this)} />
                             </Form.Group>
                         </Card.Content>
                     </Card>
@@ -134,7 +139,7 @@ class RegistroAlumno extends Component {
                         <Card.Content>
                             <Form.Group widths='equal'>
                                 <Form.Input fluid label='Bachillerato' placeholder='Bachillerato' icon="book" value={this.state.bach} onChange={this.bachChanged.bind(this)}/>
-                                <Form.Select fluid label='¿Cómo te enteraste?' options={medios} placeholder='Selecciona Medio' onChange={this.mediosChanged.bind(this)} />
+                                <Form.Select fluid label='¿Cómo te enteraste?' options={this.state.medios} placeholder='Selecciona Medio' onChange={this.mediosChanged.bind(this)} />
                             </Form.Group>
                             <FormGroup widths='equal'>
                                 <Form.Checkbox label='Trabaja?' onChange={this.trabajaChanged.bind(this)} />
@@ -195,15 +200,19 @@ class RegistroAlumno extends Component {
     }
 
     estadoChanged(e, target){
+        let nombre = this.state.estados[target.value-1].text;
         this.setState({
-            estadoSelected: target.value
+            estadoSelected: target.value,
+            nombreEdo: nombre
         });
         this.fillMuns();
     }
 
     munChanged(e, target){
+        let nombre = this.state.municipios[target.value-1].text;
         this.setState({
-            munSelected: target.value
+            munSelected: target.value,
+            nombreMun: nombre
         });
     }
 
@@ -216,15 +225,18 @@ class RegistroAlumno extends Component {
     }
 
     turnoChanged(e, target){
-        this.setState({turnoSelected: target.value});
+        let nombre = this.state.turnos[target.value-1].text;
+        this.setState({turnoSelected: target.value, nombreTurno: nombre});
     }
 
     estatusChanged(e, target){
-        this.setState({estatusSelected: target.value});
+        let nombre = this.state.estatuses[target.value-1].text;
+        this.setState({estatusSelected: target.value, nombreEstatus: nombre});
     }
 
     mediosChanged(e, target){
-        this.setState({medioSelected: target.value});
+        let nombre = this.state.medios[target.value-1].text;
+        this.setState({medioSelected: target.value, nombreMedio: nombre});
     }
 
     trabajaChanged(){
@@ -275,18 +287,23 @@ class RegistroAlumno extends Component {
             ApellidoMaterno: this.state.apeMat,
             Telefono: this.state.tel,
             Municipio: this.state.munSelected,
+            nombreMun: this.state.nombreMun,
             Entidad: this.state.estadoSelected,
+            nombreEdo: this.state.nombreEdo,
             Direccion: this.state.dir,
             CURP: this.state.curp,
             Email: this.state.correo,
             PerfilID: 1,
             CuatrimestreID: this.state.cautrimestreSelected,
             StatusID: this.state.estatusSelected,
+            nombreEstatus: this.state.nombreEstatus,
             CarreraID: this.state.carreraSelected,
             Trabaja: this.state.trabaja ? 'SI' : 'NO',
             LugarTrabaja: this.state.lugarTrabajo,
             Turno: this.state.turnoSelected,
+            nombreTurno: this.state.nombreTurno,
             Medio: this.state.medioSelected,
+            nombreMedio: this.state.nombreMedio,
             Bachillerato: this.state.bach
         };
         console.log(data);

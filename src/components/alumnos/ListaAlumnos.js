@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Table, Header, Grid, Button, Icon, Input, Card, List  } from 'semantic-ui-react';
+import { Container, Table, Header, Grid, Button, Icon, Input, Card, List } from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../config';
 import _ from 'lodash';
@@ -33,7 +33,18 @@ export default class ListaAlumnos extends Component {
         });
 
         const displayAlumnos = filteredAlumnos.map((alumno, index) => {
-            return <AlumnoRow key={index} matricula={alumno.Matricula} nombre={`${alumno.Nombre} ${alumno.ApellidoPaterno} ${alumno.ApellidoMaterno}`} carrera={alumno.CarreraID} cuatrimestre={alumno.CuatrimestreID} handler={() => this.handleDetalles(alumno)} />;
+            return (
+                <AlumnoRow 
+                    key={index} 
+                    matricula={alumno.Matricula} 
+                    nombre={`${alumno.Nombre} ${alumno.ApellidoPaterno} ${alumno.ApellidoMaterno}`} 
+                    carrera={alumno.CarreraID} 
+                    cuatrimestre={alumno.CuatrimestreID} 
+                    handler={() => this.handleDetalles(alumno)}
+                    origen={`${alumno.Municipio}, ${alumno.Entidad}`}
+                    estatus={alumno.Status}
+                />
+            );
         });
 
         return(
@@ -61,6 +72,8 @@ export default class ListaAlumnos extends Component {
                                     <Table.HeaderCell>Nombre</Table.HeaderCell>
                                     <Table.HeaderCell>Carrera</Table.HeaderCell>
                                     <Table.HeaderCell>Cuatrimestre</Table.HeaderCell>
+                                    <Table.HeaderCell>Origen</Table.HeaderCell>
+                                    <Table.HeaderCell>Estatus</Table.HeaderCell>
                                     <Table.HeaderCell>Acciones</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
@@ -103,9 +116,3 @@ export default class ListaAlumnos extends Component {
         this.setState({showDetalles: true, alumnoEditar: alumno});
     }
 }
-
-/*
-    TODO: guardar status de alumno alregistrar.
-    TODO: guardar los nombres de los estados y municipios
-    TODO: guardar medio y turno con el nombre
-*/
