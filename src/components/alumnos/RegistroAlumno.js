@@ -66,7 +66,8 @@ class RegistroAlumno extends Component {
             nombreEstatus: '',
             medioSelected: 0,
             nombreMedio: '',
-            trabaja: false
+            trabaja: false,
+            isLoading: false
         };
     }
 
@@ -79,9 +80,9 @@ class RegistroAlumno extends Component {
         return (
             <Container text>
                 <Header size='large'>Registro de Alumno</Header>
-                <Form onSubmit={this.formSubmit.bind(this)}>
+                <Form onSubmit={this.formSubmit.bind(this)} loading={this.state.isLoading}>
                     <Form.Input fluid label='Matríula' placeholder='Matrícula de Alumno' value={this.state.matricula} onChange={(e) => this.setState({matricula: e.target.value})}></Form.Input>
-                    
+        
                     <Header>
                         <Icon name='list layout' /> Datos Generales del Alummno
                     </Header>
@@ -160,7 +161,7 @@ class RegistroAlumno extends Component {
     }
 
     fillEdos(){
-        axios.get('http://datamx.io/dataset/73b08ca8-e955-4ea5-a206-ee618e26f081/resource/9c5e8302-221c-46f2-b9f7-0a93cbe5365b/download/estados.json').then((response) => {
+        axios.get(`${config.baseUrl}/estados`).then((response) => {
             let arrayEstados = [];
             let count = 0;
             response.data.forEach(estado => {
@@ -179,7 +180,7 @@ class RegistroAlumno extends Component {
     }
 
     fillMuns(){
-        axios.get('http://datamx.io/dataset/319a8368-416c-4fe6-b683-39cf4d58b360/resource/829a7efd-3be9-4948-aa1b-896d1ee12979/download/municipios.json').then((response) => {
+        axios.get(`${config.baseUrl}/municipios`).then((response) => {
             let arrayMuns = [];
             let count = 0;
             response.data.forEach(mun => {
@@ -280,6 +281,7 @@ class RegistroAlumno extends Component {
 
     formSubmit(e){
         e.preventDefault();
+        this.setState({isLoading: true});
         let data = {
             Matricula: this.state.matricula,
             Nombre: this.state.nombre,
@@ -309,7 +311,7 @@ class RegistroAlumno extends Component {
         console.log(data);
 
         axios.post(`${config.baseUrl}/alumnos/registro`, data).catch((err) => {
-            console.log('error xD', err);
+            console.log('error al insertar alumno ', err);
         }).then((response) => {
             if(response.data === 'ok'){
                 swal({
@@ -318,6 +320,7 @@ class RegistroAlumno extends Component {
                     type: 'success',
                     confirmButtonText: 'Aceptar'
                 });
+                this.setState({isLoading: false});
             }else{
                 swal({
                     title: 'Error!',

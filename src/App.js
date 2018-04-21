@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'reac
 import RegistroAlumno from './components/alumnos/RegistroAlumno';
 import ListaAlumnos from './components/alumnos/ListaAlumnos';
 import EditarAlumno from './components/alumnos/EditarAlumno';
-import RegistroMaestro from './components/RegistroMaestro';
+import RegistroMaestro from './components/maestros/RegistroMaestro';
 import Pagos from './components/pagos/Pagos';
 import RegistroPago from './components/pagos/RegistroPago';
 import LoginForm from './components/LoginForm';
+import ListaMaestros from './components/maestros/ListaMaestros';
 //import NoMatch from './components/NoMatch';
 
 class App extends Component {
@@ -26,18 +27,35 @@ class App extends Component {
             <Menu fixed='top' inverted>
               <Container>
                 <Menu.Item as='a' header>
-                  Project Name
+                  SICECUI
                 </Menu.Item>
-                <Menu.Item as='a'>Home</Menu.Item>
+                <Menu.Item as='a'>Inicio</Menu.Item>
 
                 <Dropdown item simple text='Acciones' closeOnChange={true}>
                   <Dropdown.Menu>
-                    <Dropdown.Header>Alumnos</Dropdown.Header>
-                    <Dropdown.Item><Link to="/alumno/registro" style={{color: 'black'}}>Registro de Alumnos</Link></Dropdown.Item>
+
+                    <Dropdown.Item>
+                      <i className='dropdown icon' />
+                      <span className='text'>Alumnos</span>
+                      <Dropdown.Menu>
+                      <Dropdown.Item><Link to="/alumno/registro" style={{color: 'black'}}>Registro de Alumnos</Link></Dropdown.Item>
                     <Dropdown.Item><Link to="/alumno/lista" style={{color: 'black'}}>Lista de Alumnos</Link></Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown.Item>
+                    
                     <Dropdown.Divider />
-                    <Dropdown.Header>Maestros</Dropdown.Header>
-                    <Dropdown.Item><Link to="/maestro/registro" style={{color: 'black'}}>Registro de Maestros</Link></Dropdown.Item>
+                    
+                    <Dropdown.Item>
+                      <i className='dropdown icon' />
+                      <span className='text'>Maestros</span>
+                      <Dropdown.Menu>
+                        <Dropdown.Item><Link to="/maestro/registro" style={{color: 'black'}}>Registro de Maestros</Link></Dropdown.Item>
+                        <Dropdown.Item><Link to="/maestro/lista" style={{color: 'black'}}>Lista de Maestros</Link></Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown.Item>
+
+                    <Dropdown.Divider />
+                    
                     <Dropdown.Item>
                       <i className='dropdown icon' />
                       <span className='text'>Pagos</span>
@@ -46,6 +64,7 @@ class App extends Component {
                         <Dropdown.Item><Link to="/pagos/registro" style={{color: 'black'}}>Registro de Pago</Link></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown.Item>
+
                   </Dropdown.Menu>
                 </Dropdown>
               </Container>
@@ -53,6 +72,7 @@ class App extends Component {
 
             <Container fluid style={{ marginTop: '7em' }}>
               <Route path="/maestro/registro" component={RegistroMaestro}></Route>
+              <Route path="/maestro/lista" component={ListaMaestros}></Route>
               <Route path="/alumno/registro" component={RegistroAlumno}></Route>
               <Route path="/alumno/lista" component={ListaAlumnos}></Route>
               <Route path="/alumno/editar/:id" component={EditarAlumno}></Route>
