@@ -4,9 +4,6 @@ import config from '../../config';
 
 
 class Pagos extends Component {
-    constructor(props){
-        super(props);
-    }
     render(){
         return(
             <List.Item>
@@ -48,9 +45,6 @@ class Pagos extends Component {
                         </Grid.Column>
                     </Grid.Row>
                 </Grid>
-
-                
-                
             </List.Item>
         );
     }

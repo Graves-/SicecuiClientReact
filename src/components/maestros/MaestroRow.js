@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Table, Button, Icon } from 'semantic-ui-react';
+import React from 'react';
+import { Table } from 'semantic-ui-react';
 
 const MaestroRow = (props) => {
     return(
@@ -20,11 +20,8 @@ const MaestroRow = (props) => {
                 {props.origen}
             </Table.Cell>
             <Table.Cell>
-                {props.fechaRegistro}
+                {props.accion}
             </Table.Cell>
-            {/*<Table.Cell textAlign='center'>
-                <Button id={`btn_${props.matricula}`} color='blue' onClick={props.handler}><Icon name='info' /> Detalles</Button>
-            </Table.Cell>*/}
         </Table.Row>
     );
 };

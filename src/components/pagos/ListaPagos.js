@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Container, List, Input } from 'semantic-ui-react';
 import ListItemPagos from './ListItemPagos';
 import _ from 'lodash';
-import config from '../../config';
-import axios from 'axios';
+//import config from '../../config';
+//import axios from 'axios';
 
 class Pagos extends Component {
     

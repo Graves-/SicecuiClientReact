@@ -20,10 +20,10 @@ class Pagos extends Component {
 
     render(){
         let filteredPagos = this.state.pagos.filter( (pago) => {
-            if(this.state.selectedAnio == 0){
+            if(this.state.selectedAnio === 0){
                 return true;
             } else{
-                return pago.Anio == this.state.selectedAnio
+                return pago.Anio === this.state.selectedAnio
             }
             
         });

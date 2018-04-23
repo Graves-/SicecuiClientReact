@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Table, Header, Icon } from 'semantic-ui-react';
+import { Container, Table, Header, Icon, Button } from 'semantic-ui-react';
 import MaestroRow from '../maestros/MaestroRow';
 import axios from 'axios';
 import config from '../../config';
@@ -8,7 +8,8 @@ export default class ListaMaestros extends Component {
     constructor(){
         super();
         this.state = {
-            maestros: []
+            maestros: [],
+            maestroIdSelected: ''
         }
     }
 
@@ -17,9 +18,13 @@ export default class ListaMaestros extends Component {
     }
 
     render(){
-
+        // Si la lista se llamma desde el componente de RegistroGrupos, entonces se tiene un botón para la acción de Asignar Grupo.
         const listaMaestros = this.state.maestros.map((maestro, i) => {
-            return <MaestroRow key={i} nombre={`${maestro.Nombre} ${maestro.ApellidoPaterno} ${maestro.ApellidoMaterno}`} curp={maestro.CURP} rfc={maestro.RFC} origen={`${maestro.Municipio}, ${maestro.Entidad}`} correo={maestro.Email}></MaestroRow>;
+            let compAccion;
+            if(this.props.padre === 'REGISTRO_GRUPOS'){
+                compAccion = <Button color='twitter' onClick={() => this.props.onChange(maestro._id)} objid={maestro._id}><Icon name='sign in'/> Asignar Grupo </Button>;
+            }
+            return <MaestroRow key={i} nombre={`${maestro.Nombre} ${maestro.ApellidoPaterno} ${maestro.ApellidoMaterno}`} curp={maestro.CURP} rfc={maestro.RFC} origen={`${maestro.Municipio}, ${maestro.Entidad}`} correo={maestro.Email} accion={compAccion}></MaestroRow>;
         });
 
         return (
@@ -51,8 +56,13 @@ export default class ListaMaestros extends Component {
         axios.get(`${config.baseUrl}/maestros`, {}).catch(err => {
             console.log('error al obtener alumnos ', err);
         }).then(res => {
-            console.log(res.data);
+            //console.log(res.data);
             this.setState({maestros: res.data});
         })
+    }
+
+    handleClick(e, data){
+        console.log(data.objid);
+        this.setState({maestroIdSelected: data.objid});
     }
 }

@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { Container, Dropdown, Menu } from 'semantic-ui-react';
-import { BrowserRouter as Router, Route, Link, Redirect, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import RegistroAlumno from './components/alumnos/RegistroAlumno';
 import ListaAlumnos from './components/alumnos/ListaAlumnos';
 import EditarAlumno from './components/alumnos/EditarAlumno';
 import RegistroMaestro from './components/maestros/RegistroMaestro';
 import Pagos from './components/pagos/Pagos';
 import RegistroPago from './components/pagos/RegistroPago';
-import LoginForm from './components/LoginForm';
+//import LoginForm from './components/LoginForm';
 import ListaMaestros from './components/maestros/ListaMaestros';
+import RegistroGrupos from './components/grupos/RegistroGrupos';
 //import NoMatch from './components/NoMatch';
 
 class App extends Component {
@@ -65,6 +66,16 @@ class App extends Component {
                       </Dropdown.Menu>
                     </Dropdown.Item>
 
+                    <Dropdown.Divider />
+                    
+                    <Dropdown.Item>
+                      <i className='dropdown icon' />
+                      <span className='text'>Grupos</span>
+                      <Dropdown.Menu>
+                        <Dropdown.Item><Link to="/grupos/registro" style={{color: 'black'}}>Registro de Grupos</Link></Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown.Item>
+
                   </Dropdown.Menu>
                 </Dropdown>
               </Container>
@@ -78,6 +89,7 @@ class App extends Component {
               <Route path="/alumno/editar/:id" component={EditarAlumno}></Route>
               <Route path="/pagos/lista" component={Pagos}></Route>
               <Route path="/pagos/registro" component={RegistroPago}></Route>
+              <Route path="/grupos/registro" component={RegistroGrupos}></Route>
             </Container>
           </div>
         </Router>

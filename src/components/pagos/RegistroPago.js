@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Container, Form, Button, Message, Dropdown } from 'semantic-ui-react';
+import { Grid, Container, Form, Button, Dropdown } from 'semantic-ui-react';
 import axios from 'axios';
 import swal from 'sweetalert2';
 import config from '../../config';

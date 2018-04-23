@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Table, Header, Grid, Button, Icon, Input, Card, List } from 'semantic-ui-react';
+import { Container, Table, Grid, Button, Icon, Input} from 'semantic-ui-react';
 import axios from 'axios';
 import config from '../../config';
-import _ from 'lodash';
 import AlumnoRow from './AlumnoRow';
 import DetallesAlumno from './DetallesAlumno';
 
