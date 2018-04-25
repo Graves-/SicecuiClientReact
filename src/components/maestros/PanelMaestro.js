@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Icon, Card, Button } from 'semantic-ui-react';
+import { Container, Header, Icon, Card } from 'semantic-ui-react';
 //import axios from 'axios';
 
 export default class RegistroGrupos extends Component {
@@ -10,6 +10,12 @@ export default class RegistroGrupos extends Component {
     }
 
     componentDidMount(){
+        fetch('https://sicecui-ws.herokuapp.com/maestros').then((response) => {
+            return response.json();
+        }).then((data) => {
+            console.log('fecth');
+            console.log(data);
+        })
     }
 
     render(){

@@ -186,10 +186,12 @@ class RegistroMaestro extends Component {
             dirBen: this.state.dirBen
         };
 
-        axios.post(`${config.baseUrl}/maestros/registro`, data).catch(err => {
+        axios.post(`${config.baseUrl}/newmaestro/registro`, data).catch(err => {
             console.log('error al insertar maestro ', err);
         }).then(res => {
+            console.log(res);
             if(res !== undefined){
+                
                 if(res.data === 'ok'){
                     swal({
                         title: 'Maestro Registrado',
