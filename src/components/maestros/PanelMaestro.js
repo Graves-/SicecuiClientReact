@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
 import { Container, Header, Icon, Card } from 'semantic-ui-react';
-//import axios from 'axios';
 
 export default class RegistroGrupos extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
         }
-    }
-
-    componentDidMount(){
-        fetch('https://sicecui-ws.herokuapp.com/maestros').then((response) => {
-            return response.json();
-        }).then((data) => {
-            console.log('fecth');
-            console.log(data);
-        })
     }
 
     render(){
