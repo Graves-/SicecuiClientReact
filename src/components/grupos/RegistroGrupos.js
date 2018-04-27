@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ListaMaestros from '../maestros/ListaMaestros';
 import PanelMaestro from '../maestros/PanelMaestro';
+import BusquedaCarrera from '../carreras/busquedaCarrera';
 import { Divider, Container, Header } from 'semantic-ui-react';
 import config from '../../config';
 
@@ -21,6 +22,7 @@ export default class RegistroGrupos extends Component {
                 <ListaMaestros padre='REGISTRO_GRUPOS' onChange={this.handleClickXD.bind(this)} />
                 <Divider />
                 <PanelMaestro detalles={this.state.maestroInfo} />
+                <BusquedaCarrera />
             </Container>
         );
     }
