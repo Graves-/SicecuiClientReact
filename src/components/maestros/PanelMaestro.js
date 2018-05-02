@@ -25,9 +25,6 @@ export default class RegistroGrupos extends Component {
                             <Card.Meta>
                                 {this.props.detalles.Email}
                             </Card.Meta>
-                            <Card.Description>
-                            Steve wants to add you to the group <strong>best friends</strong>
-                            </Card.Description>
                         </Card.Content>
                     </Card>
                 </div>

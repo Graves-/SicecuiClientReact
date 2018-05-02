@@ -22,7 +22,7 @@ export default class ListaMaestros extends Component {
         const listaMaestros = this.state.maestros.map((maestro, i) => {
             let compAccion;
             if(this.props.padre === 'REGISTRO_GRUPOS'){
-                compAccion = <Button color='twitter' onClick={() => this.props.onChange(maestro._id)} objid={maestro._id}><Icon name='sign in'/> Asignar Grupo </Button>;
+                compAccion = <Button color='yellow' onClick={() => this.props.onChange(maestro._id)} objid={maestro._id}><Icon name='sign in'/> Asignar Grupo </Button>;
             }
             return <MaestroRow key={i} nombre={`${maestro.Nombre} ${maestro.ApellidoPaterno} ${maestro.ApellidoMaterno}`} curp={maestro.CURP} rfc={maestro.RFC} origen={`${maestro.Municipio}, ${maestro.Entidad}`} correo={maestro.Email} accion={compAccion}></MaestroRow>;
         });

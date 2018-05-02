@@ -10,6 +10,8 @@ import RegistroPago from './components/pagos/RegistroPago';
 //import LoginForm from './components/LoginForm';
 import ListaMaestros from './components/maestros/ListaMaestros';
 import RegistroGrupos from './components/grupos/RegistroGrupos';
+import ListaGrupos from './components/grupos/ListaGrupos';
+import AsignacionMateria from './components/kardex/AsignacionMateria';
 //import NoMatch from './components/NoMatch';
 
 class App extends Component {
@@ -73,6 +75,17 @@ class App extends Component {
                       <span className='text'>Grupos</span>
                       <Dropdown.Menu>
                         <Dropdown.Item><Link to="/grupos/registro" style={{color: 'black'}}>Registro de Grupos</Link></Dropdown.Item>
+                        <Dropdown.Item><Link to="/grupos/lista" style={{color: 'black'}}>Lista de Grupos</Link></Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown.Item>
+
+                    <Dropdown.Divider />
+                    
+                    <Dropdown.Item>
+                      <i className='dropdown icon' />
+                      <span className='text'>Kardex</span>
+                      <Dropdown.Menu>
+                        <Dropdown.Item><Link to="/kardex/registro" style={{color: 'black'}}>Asignación de Materias</Link></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown.Item>
 
@@ -90,6 +103,8 @@ class App extends Component {
               <Route path="/pagos/lista" component={Pagos}></Route>
               <Route path="/pagos/registro" component={RegistroPago}></Route>
               <Route path="/grupos/registro" component={RegistroGrupos}></Route>
+              <Route path="/grupos/lista" component={ListaGrupos}></Route>
+              <Route path="/kardex/registro" component={AsignacionMateria}></Route>
             </Container>
           </div>
         </Router>

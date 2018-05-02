@@ -46,7 +46,9 @@ export default class BusquedaCarrera extends Component {
                         return (
                             <List.Item key={i}>
                                 <List.Content floated='right'>
-                                    <Button color='orange' onClick={this.onMateriaSelected.bind(this, materia.MateriaID)}><Icon name='add' /> Add</Button>
+                                    <Button color='red' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'A')}><Icon name='add' /> Matutino</Button>
+                                    <Button color='green' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'B')}><Icon name='add' /> Vespertino</Button>
+                                    <Button color='blue' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'C')}><Icon name='add' /> Sabatino</Button>
                                 </List.Content>
                                 <List.Content>
                                     <List.Header>{materia.Nombre}</List.Header>
@@ -72,8 +74,8 @@ export default class BusquedaCarrera extends Component {
         }, 1000);
     }
 
-    onMateriaSelected(id){
-        this.props.onMateriaSelected(id);
+    onMateriaSelected(id, turno){
+        this.props.onMateriaSelected(id, turno);
         this.setState({materiaSelected: id});
     }
 }

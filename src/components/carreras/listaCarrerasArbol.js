@@ -22,11 +22,12 @@ export default class ListaCarrerasArbol extends Component {
 
     render(){
         return(
-            <Container>             
+            <Container>    
+                <List>         
                 {
                     this.state.carreras.map((item, i) => {
                         return (
-                            <List key={i}>
+                            <List.Item key={i} onClick={this.itemClickHandler.bind(this, item)}> 
                                 <List.Content>
                                     <List.Header style={{fontSize: '18pt'}}><List.Icon name='book' /> {`${item.CarreraID} - ${item.Nombre}`}</List.Header>
                                     <List.List>
@@ -51,11 +52,16 @@ export default class ListaCarrerasArbol extends Component {
                                         })}
                                     </List.List>
                                 </List.Content>
-                            </List>
+                            </List.Item>
                         )
                     })
                 }
+                </List>
             </Container>
         );
+    }
+
+    itemClickHandler(item){
+        console.log(item);
     }
 }
