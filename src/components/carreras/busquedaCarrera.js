@@ -39,16 +39,16 @@ export default class BusquedaCarrera extends Component {
     render(){
         return(
             <div style={{marginTop: '15px'}}>
-                <Header><Icon name='info circle'/> Seleccionar Carrera</Header>
+                <Header><Icon name='info circle'/> Seleccionar Materia</Header>
                 <Input fluid icon='search' iconPosition='left' placeholder='Buscar materia...' loading={this.state.isLoading} onChange={this.searchMateriaFromInput.bind(this)} />
                 <List divided verticalAlign='middle'>
                     {this.state.filtered.map((materia, i) => {
                         return (
                             <List.Item key={i}>
                                 <List.Content floated='right'>
-                                    <Button color='red' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'A')}><Icon name='add' /> Matutino</Button>
-                                    <Button color='green' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'B')}><Icon name='add' /> Vespertino</Button>
-                                    <Button color='blue' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'C')}><Icon name='add' /> Sabatino</Button>
+                                    <Button color='red' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'A', materia.Nombre)}><Icon name='add' /> Matutino</Button>
+                                    <Button color='green' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'B', materia.Nombre)}><Icon name='add' /> Vespertino</Button>
+                                    <Button color='blue' onClick={this.onMateriaSelected.bind(this, materia.MateriaID, 'C', materia.Nombre)}><Icon name='add' /> Sabatino</Button>
                                 </List.Content>
                                 <List.Content>
                                     <List.Header>{materia.Nombre}</List.Header>
@@ -74,8 +74,8 @@ export default class BusquedaCarrera extends Component {
         }, 1000);
     }
 
-    onMateriaSelected(id, turno){
-        this.props.onMateriaSelected(id, turno);
+    onMateriaSelected(id, turno, nombre){
+        this.props.onMateriaSelected(id, turno, nombre);
         this.setState({materiaSelected: id});
     }
 }

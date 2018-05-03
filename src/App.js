@@ -12,6 +12,7 @@ import ListaMaestros from './components/maestros/ListaMaestros';
 import RegistroGrupos from './components/grupos/RegistroGrupos';
 import ListaGrupos from './components/grupos/ListaGrupos';
 import AsignacionMateria from './components/kardex/AsignacionMateria';
+import KardexAlumno from './components/kardex/KardexAlumno';
 //import NoMatch from './components/NoMatch';
 
 class App extends Component {
@@ -86,6 +87,7 @@ class App extends Component {
                       <span className='text'>Kardex</span>
                       <Dropdown.Menu>
                         <Dropdown.Item><Link to="/kardex/registro" style={{color: 'black'}}>Asignación de Materias</Link></Dropdown.Item>
+                        <Dropdown.Item><Link to="/kardex/alumno" style={{color: 'black'}}>Kardex de Alumno</Link></Dropdown.Item>
                       </Dropdown.Menu>
                     </Dropdown.Item>
 
@@ -105,6 +107,7 @@ class App extends Component {
               <Route path="/grupos/registro" component={RegistroGrupos}></Route>
               <Route path="/grupos/lista" component={ListaGrupos}></Route>
               <Route path="/kardex/registro" component={AsignacionMateria}></Route>
+              <Route path="/kardex/alumno" component={KardexAlumno}></Route>
             </Container>
           </div>
         </Router>

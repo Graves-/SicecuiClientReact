@@ -32,7 +32,8 @@ export default class AsignacionMateria extends Component {
                                     <List.Icon name='user circle' size='large' verticalAlign='middle' />
                                 </List.Content>
                                 <List.Content floated='right'>
-                                    <Button color='linkedin' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula)}><Icon name='add' /> Asignar Materia</Button>
+                                    {this.props.source === 'KARDEX' ? <Button color='orange' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula, `${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`, item.CarreraID)}><Icon name='browser' /> Ver Kardex</Button> : <Button color='linkedin' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula, `${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`, item.CarreraID)}><Icon name='add' /> Asignar Materia</Button>}
+                                    
                                 </List.Content>
                                 <List.Content>
                                     <List.Header as='a'>{`${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`}</List.Header>
@@ -55,12 +56,11 @@ export default class AsignacionMateria extends Component {
         setTimeout(() => {
             if(input === '') { this.setState({isLoading: false, filtered: []}); }
             else{ this.setState({isLoading: false, filtered: filter}); }
-            console.log(filter);
         }, 1000);
     }
 
-    alumnoSelected(_id, matricula){
-        this.props.onAlumnoSelected(_id, matricula);
+    alumnoSelected(_id, matricula, nombre, carreraID){
+        this.props.onAlumnoSelected(_id, matricula, nombre, carreraID);
     }
 
     getAlumnos(){
