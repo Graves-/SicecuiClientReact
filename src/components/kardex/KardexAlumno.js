@@ -26,6 +26,17 @@ export default class KardexAlumno extends Component {
                     : 
                     <Button color='red' floated='right' onClick={this.onCancel.bind(this)}><Icon name='close' /> Cancelar</Button>
                 }
+                {this.state.idAlumno !== '' ? 
+                    <Card fluid>
+                        <Card.Content header='About Amy' />
+                        <Card.Content description={this.state.matriculaAlumno} />
+                        <Card.Content extra>
+                        <Icon name='user' />
+                        4 Friends
+                        </Card.Content>
+                    </Card> :
+                    null
+                }
                 {this.state.idAlumno !== '' ? <ListaCursando filter='ALUMNO' idAlumno={this.state.idAlumno} /> : <h4>Selecciona un alumno de la lista para mostar su kardex.</h4> }
                 
             </Container>

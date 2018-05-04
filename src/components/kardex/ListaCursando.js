@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import config from '../../config';
-import { Container, List, Card } from 'semantic-ui-react';
+import { Container, List, Card, Divider } from 'semantic-ui-react';
 
 export default class ListaCursando extends Component {
     constructor(props){
@@ -36,6 +36,12 @@ export default class ListaCursando extends Component {
                             <List.Item key={i}>
                                 <List.List>
                                     <List.Item>
+                                        <List.Icon name='book' />
+                                        <List.Content>
+                                            <strong>Materia:</strong> {item.MateriaID} - {item.NombreMateria}
+                                        </List.Content>
+                                    </List.Item>
+                                    <List.Item>
                                         <List.Icon name='hashtag' />
                                         <List.Content><strong>Primer parcial:</strong> {item.PrimerParcial.toFixed(2)}</List.Content>
                                     </List.Item>
@@ -48,6 +54,7 @@ export default class ListaCursando extends Component {
                                         <List.Content><strong>Tercer parcial:</strong> {item.TercerParcial.toFixed(2)}</List.Content>
                                     </List.Item>
                                 </List.List>
+                                <Divider />
                             </List.Item>
                         );
                     })
