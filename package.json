@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "faker": "^4.1.0",
+    "firebase": "^4.13.1",
     "lodash": "^4.17.5",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",

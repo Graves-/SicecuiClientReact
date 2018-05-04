@@ -53,6 +53,10 @@ export default class ListaCursando extends Component {
                                         <List.Icon name='hashtag' />
                                         <List.Content><strong>Tercer parcial:</strong> {item.TercerParcial.toFixed(2)}</List.Content>
                                     </List.Item>
+                                    <List.Item>
+                                        <List.Icon name='calculator' />
+                                        <List.Content><strong>Promedio:</strong> {item.Promedio.toFixed(2)}</List.Content>
+                                    </List.Item>
                                 </List.List>
                                 <Divider />
                             </List.Item>

@@ -24,20 +24,33 @@ export default class KardexAlumno extends Component {
                         </Card.Content>
                     </Card>
                     : 
-                    <Button color='red' floated='right' onClick={this.onCancel.bind(this)}><Icon name='close' /> Cancelar</Button>
+                    <Button color='red' size='tiny' floated='right' onClick={this.onCancel.bind(this)} style={{marginBottom: '25px'}}><Icon name='close' /> Cancelar</Button>
                 }
                 {this.state.idAlumno !== '' ? 
                     <Card fluid>
-                        <Card.Content header='About Amy' />
-                        <Card.Content description={this.state.matriculaAlumno} />
-                        <Card.Content extra>
-                        <Icon name='user' />
-                        4 Friends
+                        <Card.Content header={<Header><Icon name='info' /> Información del Alumno </Header>} />
+                        <Card.Content description={this.state.matriculaAlumno}>
+                            <Icon name='user circle outline' />
+                            <strong>Nombre: </strong> {this.state.nombreAlumno}
+                        </Card.Content>
+                        <Card.Content description>
+                            <Icon name='user' />
+                            <strong>Matrícula: </strong> {this.state.matriculaAlumno}
+                        </Card.Content>
+                        <Card.Content description>
+                            <Icon name='graduation' />
+                            <strong>Carrera: </strong> {this.state.carreraAlumno}
                         </Card.Content>
                     </Card> :
                     null
                 }
-                {this.state.idAlumno !== '' ? <ListaCursando filter='ALUMNO' idAlumno={this.state.idAlumno} /> : <h4>Selecciona un alumno de la lista para mostar su kardex.</h4> }
+                <Card fluid>
+                    <Card.Content header='Materias' />
+                    <Card.Content>
+                        {this.state.idAlumno !== '' ? <ListaCursando filter='ALUMNO' idAlumno={this.state.idAlumno} /> : <h4>Selecciona un alumno de la lista para mostar su kardex.</h4> }
+                    </Card.Content>
+                </Card>
+                
                 
             </Container>
         );
