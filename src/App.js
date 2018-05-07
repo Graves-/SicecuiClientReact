@@ -17,6 +17,7 @@ import LoginForm from './components/login/LoginForm';
 import SignUp from './components/login/SignUp';
 import firebase from 'firebase';
 import config from './config';
+import Typist from 'react-typist';
 //import NoMatch from './components/NoMatch';
 
 class App extends Component {
@@ -126,8 +127,18 @@ class App extends Component {
               </Container>
             </Menu>
 
-            <Container fluid style={{ marginTop: '7em' }}>
-              <Switch>
+            <div style={{marginTop: 50}}>
+            {/*
+              <Typist className="greenType">
+                <span>Animate this text.</span>
+                <Typist.Backspace count={10} delay={1000} />
+                <span>some more xD</span>
+              </Typist>
+            */}
+              
+            </div>
+
+            <Switch>
                 <Route path="/maestro/registro" component={RegistroMaestro}></Route>
                 <Route path="/maestro/lista" component={ListaMaestros}></Route>
                 <Route path="/alumno/registro" component={RegistroAlumno}></Route>
@@ -142,7 +153,6 @@ class App extends Component {
                 <Route path="/login" component={LoginForm}></Route>
                 <Route path="/signup" component={SignUp}></Route>
               </Switch>
-            </Container>
           </div>
         </Router>
       </div>
