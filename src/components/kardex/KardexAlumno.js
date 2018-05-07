@@ -29,15 +29,15 @@ export default class KardexAlumno extends Component {
                 {this.state.idAlumno !== '' ? 
                     <Card fluid>
                         <Card.Content header={<Header><Icon name='info' /> Información del Alumno </Header>} />
-                        <Card.Content description={this.state.matriculaAlumno}>
+                        <Card.Content>
                             <Icon name='user circle outline' />
                             <strong>Nombre: </strong> {this.state.nombreAlumno}
                         </Card.Content>
-                        <Card.Content description>
+                        <Card.Content>
                             <Icon name='user' />
                             <strong>Matrícula: </strong> {this.state.matriculaAlumno}
                         </Card.Content>
-                        <Card.Content description>
+                        <Card.Content>
                             <Icon name='graduation' />
                             <strong>Carrera: </strong> {this.state.carreraAlumno}
                         </Card.Content>

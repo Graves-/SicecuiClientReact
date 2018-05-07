@@ -68,7 +68,7 @@ export default class LoginForm extends Component {
                     </Segment>
                     </Form>
                     <Message>
-                        New to us? <a href=''>Sign Up</a>
+                        ¿No tienes cuenta? <a href='/signup'>Crear una cuenta.</a>
                     </Message>
                     { this.state.showErrorMsg === true ? <Message error>Usuario o contraseña incorrectos.</Message> : <div></div> }
                     { this.state.redirect === true ? <Redirect to='/maestro/lista' /> : null}

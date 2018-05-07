@@ -31,7 +31,14 @@ class App extends Component {
   componentDidMount(){
     firebase.initializeApp(config.firebaseConfig);
     firebase.auth().onAuthStateChanged((user) => {
-      if(user){ this.setState({currentUser: user, redirect: false}); }else{ this.setState({currentUser: null, redirect: true}); }
+      if(user){ this.setState({currentUser: user, redirect: false}); }
+      else{
+        if(window.location.pathname.includes('/signup')){
+          this.setState({currentUser: null, redirect: false}); 
+        }else{
+          this.setState({currentUser: null, redirect: true}); 
+        }
+      }
     });
   }
 
@@ -44,14 +51,14 @@ class App extends Component {
 
     return (
       <div>
-        <Router>
+        <Router basename='/'>
           <div>
             <Menu fixed='top' inverted>
               <Container>
                 <Menu.Item as='a' header>
                   SICECUI
                 </Menu.Item>
-                <Menu.Item as='a'>Inicio</Menu.Item>
+                <Menu.Item><Link to='/'>Inicio</Link></Menu.Item>
 
                 {this.state.currentUser !== null ?
                   <Dropdown item simple text='Acciones' closeOnChange={true}>
