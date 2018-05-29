@@ -13,6 +13,7 @@ import RegistroGrupos from './components/grupos/RegistroGrupos';
 import ListaGrupos from './components/grupos/ListaGrupos';
 import AsignacionMateria from './components/kardex/AsignacionMateria';
 import KardexAlumno from './components/kardex/KardexAlumno';
+import CapturaKardex from './components/kardex/CapturaKardex';
 import LoginForm from './components/login/LoginForm';
 import SignUp from './components/login/SignUp';
 import firebase from 'firebase';
@@ -150,6 +151,7 @@ class App extends Component {
                 <Route path="/grupos/lista" component={ListaGrupos}></Route>
                 <Route path="/kardex/registro" component={AsignacionMateria}></Route>
                 <Route path="/kardex/alumno" component={KardexAlumno}></Route>
+                <Route path="/kardex/captura" component={CapturaKardex}></Route>
                 <Route path="/login" component={LoginForm}></Route>
                 <Route path="/signup" component={SignUp}></Route>
               </Switch>
