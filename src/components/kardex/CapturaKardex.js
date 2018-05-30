@@ -13,9 +13,11 @@ export default class CapturaKardex extends Component {
             nombreAlumno: '',
             carreraAlumno: '',
             carreras: [],
-            materiasAgrupadas: []
+            materiasAgrupadas: [],
+            materiasCapturadas: []
         }
         this.cancel = this.cancel.bind(this);
+        this.onSave = this.onSave.bind(this);
     }
 
     componentDidMount(){
@@ -44,7 +46,7 @@ export default class CapturaKardex extends Component {
                                     <Header size='huge'><Icon name='caret right' /> {grupo.group}</Header>
                                     {
                                         grupo.materias.map((materia, i) => {
-                                            return <CapturarMateriaKardex key={i} nombreMat={materia.Nombre} idMateria={materia.MateriaID} />
+                                            return <CapturarMateriaKardex key={i} nombreMat={materia.Nombre} idMateria={materia.MateriaID} onSave={this.onSave}  />
                                         })
                                     }   
                                 </div>
@@ -84,5 +86,10 @@ export default class CapturaKardex extends Component {
 
     cancel(){
         this.setState({idAlumno: '', matriculaAlumno: '', nombreAlumno: '', carreraAlumno: '', materiasAgrupadas: []});
+    }
+
+    onSave(materia){
+        this.state.materiasCapturadas.push(materia);
+        console.log(this.state.materiasCapturadas);
     }
 }

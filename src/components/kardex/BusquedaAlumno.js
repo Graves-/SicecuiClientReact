@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Input, List, Button, Icon } from 'semantic-ui-react';
+import { Container, Input, List, Button, Icon, Dimmer, Loader } from 'semantic-ui-react';
 import config from '../../config';
 
 export default class AsignacionMateria extends Component {
@@ -65,12 +65,14 @@ export default class AsignacionMateria extends Component {
     }
 
     getAlumnos(){
+        this.setState({ isLoading: true });
         fetch(`${config.baseUrl}/alumnos`).then((res)=> {
             return res.json();
         }).then((data) => {
-            this.setState({alumnos: data});
+            this.setState({alumnos: data, isLoading: false});
         }).catch((err) => {
             console.log('hubo un error al obtener alumnos.', err);
+            this.setState({ isLoading: false });
         });
     }
 }
