@@ -116,6 +116,7 @@ class App extends Component {
                         <Dropdown.Menu>
                           <Dropdown.Item><Link to="/kardex/registro" style={{color: 'black'}}>Asignación de Materias</Link></Dropdown.Item>
                           <Dropdown.Item><Link to="/kardex/alumno" style={{color: 'black'}}>Kardex de Alumno</Link></Dropdown.Item>
+                          <Dropdown.Item><Link to="/kardex/captura" style={{color: 'black'}}>Capturar Kardex Completo</Link></Dropdown.Item>
                         </Dropdown.Menu>
                       </Dropdown.Item>
 

@@ -3,6 +3,7 @@ import BusquedaAlumno from './BusquedaAlumno';
 import CapturarMateriaKardex from './CapturarMateriaKardex';
 import config from '../../config';
 import { Container, Header, Icon, Button, Form } from 'semantic-ui-react';
+import axios from 'axios';
 
 export default class CapturaKardex extends Component {
     constructor(props){
@@ -12,9 +13,11 @@ export default class CapturaKardex extends Component {
             matriculaAlumno: '',
             nombreAlumno: '',
             carreraAlumno: '',
+            turnoAlumno: '',
             carreras: [],
             materiasAgrupadas: [],
-            materiasCapturadas: []
+            materiasCapturadas: [],
+            totalMaterias: 0
         }
         this.cancel = this.cancel.bind(this);
         this.onSave = this.onSave.bind(this);
@@ -36,8 +39,7 @@ export default class CapturaKardex extends Component {
                 <Button floated='right' color='red' onClick={this.cancel}>Cancelar</Button>
                 <Header size='huge'><Icon name='edit' /> Captura de Kardex</Header>
                 {this.state.carreraAlumno === '' ? <BusquedaAlumno onAlumnoSelected={this.onAlumnoSelected.bind(this)} source='CAPTURA_KARDEX' /> : null}
-                
-                
+                {this.state.carreraAlumno === '' ?  null : <Header>{this.state.materiasCapturadas.length} / {this.state.totalMaterias} materias capturadas.</Header>}
                 <Form id='FormKardex'>
                     {
                         this.state.materiasAgrupadas.map((grupo, index) => {
@@ -53,14 +55,14 @@ export default class CapturaKardex extends Component {
                             );
                         })
                     }
-                    <Button fluid color='green'>Guardar</Button>
+                    {/*<Button fluid color='green'>Guardar</Button>*/}
                 </Form>
                 
             </Container>
         );
     }
 
-    onAlumnoSelected(_id, matricula, nombre, carreraID){
+    onAlumnoSelected(_id, matricula, nombre, carreraID, turno){
         let arrayMaterias = null;
         if(this.state.carreras){
             this.state.carreras.forEach((carrera, i) => {
@@ -69,7 +71,7 @@ export default class CapturaKardex extends Component {
                 }
             });
         }
-
+        
         let agruparValores = arrayMaterias.reduce((obj, item) => {
             obj[item.CuatrimestreID] = obj[item.CuatrimestreID] || [];
             obj[item.CuatrimestreID].push(item);
@@ -81,15 +83,39 @@ export default class CapturaKardex extends Component {
         });
         
 
-        this.setState({idAlumno: _id, matriculaAlumno: matricula, nombreAlumno: nombre, carreraAlumno: carreraID, materiasAgrupadas: materiasAgrupadas});
+        this.setState({idAlumno: _id, matriculaAlumno: matricula, nombreAlumno: nombre, carreraAlumno: carreraID, materiasAgrupadas: materiasAgrupadas, turnoAlumno: turno, totalMaterias: arrayMaterias.length});
     }
 
     cancel(){
-        this.setState({idAlumno: '', matriculaAlumno: '', nombreAlumno: '', carreraAlumno: '', materiasAgrupadas: []});
+        this.setState({idAlumno: '', matriculaAlumno: '', nombreAlumno: '', carreraAlumno: '', materiasAgrupadas: [], totalMaterias: 0});
     }
 
     onSave(materia){
-        this.state.materiasCapturadas.push(materia);
-        console.log(this.state.materiasCapturadas);
+        let tempArray = this.state.materiasCapturadas;
+        tempArray.push(materia);
+        this.setState({materiasCapturadas: tempArray});
+
+        let payload = {
+            AlumnoID: this.state.idAlumno,
+            CarreraID: this.state.carreraAlumno,
+            Matricula: this.state.matriculaAlumno,
+            MateriaID: materia.idMateria,
+            NombreMateria: materia.nombre,
+            Turno: this.state.turnoAlumno,
+            PrimerParcial: materia.primero,
+            SegundoParcial: materia.segundo,
+            TercerParcial: materia.tercero,
+            Promedio: materia.promedio,
+            Repeticion: materia.repeticion,
+            DetallesParcial1: '',
+            DetallesParcial2: '',
+            DetallesParcial3: ''
+        };
+
+        axios.post(`${config.baseUrl}/kardex/save`, payload).then(res => {
+            console.log(res.data);
+        }).catch(err => {
+            console.log(err);
+        });
     }
 }

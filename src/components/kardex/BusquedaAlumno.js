@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Input, List, Button, Icon, Dimmer, Loader } from 'semantic-ui-react';
+import { Container, Input, List, Button, Icon } from 'semantic-ui-react';
 import config from '../../config';
 
 export default class AsignacionMateria extends Component {
@@ -32,9 +32,9 @@ export default class AsignacionMateria extends Component {
                                     <List.Icon name='user circle' size='large' verticalAlign='middle' />
                                 </List.Content>
                                 <List.Content floated='right'>
-                                    {this.props.source === 'KARDEX' ? <Button color='orange' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula, `${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`, item.CarreraID)}><Icon name='browser' /> Ver Kardex</Button> : null}
-                                    {this.props.source === 'ASIGNACION_MATERIA' ? <Button color='linkedin' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula, `${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`, item.CarreraID)}><Icon name='add' /> Asignar Materia</Button> : null}
-                                    {this.props.source === 'CAPTURA_KARDEX' ? <Button color='yellow' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula, `${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`, item.CarreraID)} ><Icon name='edit' />Capturar Kardex</Button> : null }
+                                    {this.props.source === 'KARDEX' ? <Button color='orange' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula, `${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`, item.CarreraID, item.Turno)}><Icon name='browser' /> Ver Kardex</Button> : null}
+                                    {this.props.source === 'ASIGNACION_MATERIA' ? <Button color='linkedin' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula, `${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`, item.CarreraID, item.Turno)}><Icon name='add' /> Asignar Materia</Button> : null}
+                                    {this.props.source === 'CAPTURA_KARDEX' ? <Button color='yellow' onClick={this.alumnoSelected.bind(this, item._id, item.Matricula, `${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`, item.CarreraID, item.Turno)} ><Icon name='edit' />Capturar Kardex</Button> : null }
                                 </List.Content>
                                 <List.Content>
                                     <List.Header as='a'>{`${item.Nombre} ${item.ApellidoPaterno} ${item.ApellidoMaterno}`}</List.Header>
@@ -60,8 +60,8 @@ export default class AsignacionMateria extends Component {
         }, 1000);
     }
 
-    alumnoSelected(_id, matricula, nombre, carreraID){
-        this.props.onAlumnoSelected(_id, matricula, nombre, carreraID);
+    alumnoSelected(_id, matricula, nombre, carreraID, turno){
+        this.props.onAlumnoSelected(_id, matricula, nombre, carreraID, turno);
     }
 
     getAlumnos(){

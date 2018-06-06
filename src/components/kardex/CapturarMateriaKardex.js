@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { Form, Header, Button } from 'semantic-ui-react';
+import { Form, Header } from 'semantic-ui-react';
 import swal from 'sweetalert2';
 
 export default class CapturaKardex extends Component {
@@ -13,12 +13,14 @@ export default class CapturaKardex extends Component {
             errorPrimero: false,
             errorSegundo: false,
             errorTercero: false,
-            saved: false
+            saved: false,
+            isRepeticion: false
         }
         this.handlePrimero = this.handlePrimero.bind(this);
         this.handleSegundo = this.handleSegundo.bind(this);
         this.handleTercero = this.handleTercero.bind(this);
         this.onSave = this.onSave.bind(this);
+        this.handleChecked = this.handleChecked.bind(this);
     }
 
     render(){
@@ -29,10 +31,11 @@ export default class CapturaKardex extends Component {
                     <div style={{paddingLeft: 15, paddingRight: 15}}>
                         <Header>{`${this.props.nombreMat} - ${this.props.idMateria}`}</Header>
                         <Form.Group>
-                            <Form.Input label='Primer Parcial' placeholder='Primer Parcial' width={3} className='parcialInput' name={`1_${this.props.idMateria}`} type='number' value={this.state.primero} onChange={this.handlePrimero} error={this.state.errorPrimero}/>
-                            <Form.Input label='Segundo Parcial' placeholder='Segundo Parcial' width={3} className='parcialInput' name={`2_${this.props.idMateria}`} type='number' value={this.state.segundo} onChange={this.handleSegundo} error={this.state.errorSegundo}/>
-                            <Form.Input label='Tercer Parcial' placeholder='Tercer Parcial' width={3} className='parcialInput' name={`3_${this.props.idMateria}`} type='number' value={this.state.tercero} onChange={this.handleTercero} error={this.state.errorTercero}/>
+                            <Form.Input label='Primer Parcial' placeholder='Primer Parcial' width={2} className='parcialInput' name={`1_${this.props.idMateria}`} type='number' value={this.state.primero} onChange={this.handlePrimero} error={this.state.errorPrimero}/>
+                            <Form.Input label='Segundo Parcial' placeholder='Segundo Parcial' width={2} className='parcialInput' name={`2_${this.props.idMateria}`} type='number' value={this.state.segundo} onChange={this.handleSegundo} error={this.state.errorSegundo}/>
+                            <Form.Input label='Tercer Parcial' placeholder='Tercer Parcial' width={2} className='parcialInput' name={`3_${this.props.idMateria}`} type='number' value={this.state.tercero} onChange={this.handleTercero} error={this.state.errorTercero}/>
                             <Form.Input label='Promedio' placeholder='Promedio' width={3} className='promedioInput' name={`4_${this.props.idMateria}`} readOnly value={this.state.promedio} />
+                            <Form.Checkbox label='Repetición' onChange={this.handleChecked} checked={this.isRepeticion} />
                             <Form.Button label='' color='blue' width={4} onClick={this.onSave}>Guardar</Form.Button>
                         </Form.Group>
                     </div>
@@ -73,8 +76,12 @@ export default class CapturaKardex extends Component {
         
     }
 
+    handleChecked(e){
+        this.setState({isRepeticion: !this.state.isRepeticion});
+    }
+
     calcularPromedio(primero, segundo, tercero) {
-        return ((parseInt(primero) + parseInt(segundo) + parseInt(tercero)) / 3).toFixed(2);
+        return ((parseInt(primero, 10) + parseInt(segundo,10) + parseInt(tercero, 10)) / 3).toFixed(2);
     }
 
     onSave(){
@@ -85,7 +92,8 @@ export default class CapturaKardex extends Component {
                 tercero: this.state.tercero,
                 promedio: this.state.promedio,
                 idMateria: this.props.idMateria,
-                nombre: this.props.nombreMat
+                nombre: this.props.nombreMat,
+                repeticion: this.state.isRepeticion ? 'EN REPETICIÓN' : 'NO'
             });
             this.setState({saved: true});
         }else{
